@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Syed Mohsin Nadeem, Senior Data Scientist</title>
+<meta name="description" content="Senior Data Scientist in Newcastle-upon-Tyne specialising in anomaly detection, time-series modelling, deep learning and AI governance.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F3F5F7; --surface:#FFFFFF; --ink:#1C2733; --muted:#5B6775;
+  --rule:#D6DCE3; --signal:#2F5D8A; --anomaly:#C8412B; --grid:#E3E8ED;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#141A21; --surface:#1B232C; --ink:#E4E9EE; --muted:#9AA6B3;
+    --rule:#2C3743; --signal:#7FA8D6; --anomaly:#E7725C; --grid:#212B35;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#141A21; --surface:#1B232C; --ink:#E4E9EE; --muted:#9AA6B3;
+  --rule:#2C3743; --signal:#7FA8D6; --anomaly:#E7725C; --grid:#212B35;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 72px);scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{
+  margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Schibsted Grotesk",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  font-size:1.0625rem;line-height:1.6;-webkit-font-smoothing:antialiased;
+}
+a{color:var(--signal);text-underline-offset:3px}
+a:focus-visible,button:focus-visible{outline:2px solid var(--signal);outline-offset:3px;border-radius:2px}
+.wrap{max-width:1040px;margin:0 auto;padding:0 clamp(20px,5vw,40px)}
+.measure{max-width:68ch}
+
+/* Header */
+header.top{
+  position:sticky;top:env(safe-area-inset-top,0px);z-index:10;
+  background:color-mix(in srgb,var(--bg) 88%,transparent);
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--rule);
+}
+header.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:60px}
+.mark{font-weight:800;color:var(--ink);text-decoration:none;letter-spacing:-.01em}
+nav ul{display:flex;gap:clamp(12px,3vw,28px);list-style:none;margin:0;padding:0}
+nav a{color:var(--muted);text-decoration:none;font-size:.95rem;font-weight:500}
+nav a:hover{color:var(--ink)}
+@media (max-width:560px){nav .opt{display:none}}
+
+/* Hero */
+.hero{padding:clamp(56px,10vw,112px) 0 28px}
+.hero h1{
+  font-size:clamp(2.6rem,7.5vw,5.25rem);line-height:.98;letter-spacing:-.035em;
+  font-weight:800;margin:0 0 20px;max-width:12ch;
+}
+.hero .role{font-size:clamp(1.15rem,2.2vw,1.35rem);font-weight:600;margin:0 0 12px}
+.hero .lede{color:var(--muted);font-size:clamp(1.05rem,1.8vw,1.2rem);margin:0 0 28px;max-width:56ch}
+.actions{display:flex;flex-wrap:wrap;gap:12px}
+.btn{
+  display:inline-block;padding:11px 20px;border-radius:6px;font-weight:600;
+  text-decoration:none;border:1.5px solid var(--ink);color:var(--ink);font-size:.98rem;
+}
+.btn.primary{background:var(--ink);color:var(--bg)}
+.btn:hover{border-color:var(--signal)}
+.btn.primary:hover{background:var(--signal);border-color:var(--signal)}
+
+.hero{display:grid;grid-template-columns:minmax(0,1fr);gap:28px;align-items:center}
+.hero .photo{width:clamp(120px,28vw,168px);aspect-ratio:1;height:auto;border-radius:50%;object-fit:cover;border:1px solid var(--rule);background:var(--surface)}
+@media (min-width:760px){.hero{grid-template-columns:minmax(0,1fr) auto;gap:48px}.hero .photo{width:clamp(200px,24vw,260px);order:2}}
+
+/* Signal strip: the one expressive element */
+.signal{
+  margin:48px 0 0;background:var(--surface);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);
+}
+.signal svg{display:block;width:100%;height:clamp(150px,22vw,220px)}
+.signal .grid-line{stroke:var(--grid);stroke-width:1}
+.signal .trace{fill:none;stroke:var(--signal);stroke-width:1.75;stroke-linejoin:round}
+.signal .flag-ring{fill:none;stroke:var(--anomaly);stroke-width:1.75}
+.signal .flag-band{fill:var(--anomaly);opacity:.08}
+.signal .flag-text{fill:var(--anomaly);font:600 12px "Schibsted Grotesk",system-ui,sans-serif}
+.signal figcaption{
+  font-size:.85rem;color:var(--muted);padding:10px 0 12px;
+}
+
+/* Sections */
+section.block{padding:clamp(56px,8vw,88px) 0 0}
+section.block h2{
+  font-size:clamp(1.5rem,3vw,1.9rem);letter-spacing:-.02em;font-weight:800;margin:0 0 24px;
+}
+.split{display:grid;grid-template-columns:minmax(0,1fr);gap:8px}
+@media (min-width:820px){
+  .split{grid-template-columns:220px minmax(0,1fr);gap:40px}
+  .split h2{margin-top:4px}
+}
+p{margin:0 0 1em}
+
+.job{border-left:2px solid var(--signal);padding-left:22px}
+.job h3{font-size:1.2rem;margin:0;font-weight:700}
+.job .meta{color:var(--muted);margin:2px 0 16px;font-size:.98rem}
+.job ul{margin:0;padding-left:1.1em}
+.job li{margin:0 0 .6em;padding-left:.2em}
+.job li::marker{color:var(--muted)}
+
+.project{padding:0 0 28px;margin:0 0 28px;border-bottom:1px solid var(--rule)}
+.project:last-child{border-bottom:0;margin-bottom:0;padding-bottom:0}
+.project h3{font-size:1.15rem;margin:0 0 4px;font-weight:700}
+.project .client{color:var(--muted);font-size:.95rem;margin:0 0 10px}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 0;padding:0;list-style:none}
+.tags li{font-size:.82rem;padding:3px 10px;border-radius:999px;border:1px solid var(--rule);color:var(--muted)}
+
+dl.skills{margin:0;display:grid;grid-template-columns:minmax(0,1fr);gap:22px}
+@media (min-width:640px){dl.skills{grid-template-columns:repeat(2,minmax(0,1fr));gap:26px 36px}}
+dl.skills dt{font-weight:700;margin:0 0 4px}
+dl.skills dd{margin:0;color:var(--muted);font-size:.98rem}
+
+.edu h3{font-size:1.1rem;margin:0;font-weight:700}
+.edu .meta{color:var(--muted);margin:2px 0 8px;font-size:.98rem}
+.edu + .edu{margin-top:24px}
+
+
+/* Charts */
+:root{--bar1:#9FB4CA}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bar1:#4E6378}}
+:root[data-theme="dark"]{--bar1:#4E6378}
+figure.chartfig{margin:18px 0 6px;padding:14px 14px 10px;background:var(--surface);border:1px solid var(--rule);border-radius:8px}
+figure.chartfig svg.chart{display:block;width:100%;height:auto;overflow:visible}
+figure.chartfig figcaption{font-size:.85rem;color:var(--muted);margin-top:8px}
+.chart .gl{stroke:var(--grid);stroke-width:1}
+.chart .s1{fill:none;stroke:var(--signal);stroke-width:2;stroke-linejoin:round}
+.chart .fc{fill:none;stroke:var(--signal);stroke-width:2;stroke-dasharray:5 4}
+.chart .band{fill:var(--signal);opacity:.14}
+.chart .pt{fill:var(--anomaly)}
+.chart .bar0{fill:var(--signal)} .chart .bar1{fill:var(--bar1)}
+.chart text{font-family:"Schibsted Grotesk",system-ui,sans-serif}
+.chart .tick{fill:var(--muted);font-size:12px}
+.chart .lbl{fill:var(--ink);font-size:13px;font-weight:500}
+.chart .lbl2{fill:var(--muted);font-size:12px}
+.chart .val{fill:var(--ink);font-size:12px;font-weight:600}
+.legend{display:flex;gap:16px;list-style:none;margin:6px 0 0;padding:0;font-size:.85rem;color:var(--muted)}
+.legend li::before{content:"";display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px;background:var(--signal)}
+.legend li.b1::before{background:var(--bar1)}
+.stat{display:flex;flex-wrap:wrap;gap:8px 28px;margin:14px 0 4px}
+.stat div{min-width:120px}
+.stat b{display:block;font-size:1.5rem;letter-spacing:-.02em;line-height:1.1}
+.stat span{font-size:.85rem;color:var(--muted)}
+ol.flow{list-style:none;margin:18px 0 6px;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(112px,1fr));gap:10px;counter-reset:step}
+ol.flow li{counter-increment:step;background:var(--surface);border:1px solid var(--rule);border-radius:8px;padding:10px 12px 12px;font-size:.9rem;line-height:1.35}
+ol.flow li::before{content:counter(step);display:block;font-weight:800;color:var(--signal);font-size:.85rem;margin-bottom:4px}
+ol.flow li b{display:block;font-size:.95rem;margin-bottom:2px}
+ol.flow li span{color:var(--muted);font-size:.82rem}
+@media (max-width:560px){.chart .tick{font-size:16px}.chart .lbl2{font-size:15px}.chart .lbl,.chart .val{font-size:14px}}
+.flow-note{font-size:.85rem;color:var(--muted);margin:8px 0 0}
+.repo{font-weight:600;font-size:.95rem;margin:14px 0 0}
+.conf{font-size:.9rem;color:var(--muted);margin:0 0 26px}
+
+/* Churn segment grid */
+.seg{display:grid;grid-template-columns:auto 1fr 1fr;gap:6px;margin:18px 0 6px;font-size:.88rem}
+.seg .ax{color:var(--muted);font-size:.8rem;display:flex;align-items:center;justify-content:flex-end;text-align:right;padding-right:6px;line-height:1.3}
+.seg .ax.col{justify-content:center;text-align:center;padding:4px 0 0}
+.seg .cell{border-radius:6px;padding:12px 12px 10px;line-height:1.35;background:var(--surface);border:1px solid var(--rule)}
+.seg .cell b{display:block;font-size:.98rem;margin:0 0 4px}
+.seg .cell span{display:block;color:var(--muted);font-size:.8rem}
+.seg .cell.hot{background:var(--anomaly);border-color:var(--anomaly);color:#fff}
+.seg .cell.hot span{color:rgba(255,255,255,.85)}
+.seg .cell.key{background:var(--signal);border-color:var(--signal);color:var(--bg)}
+.seg .cell.key span{color:color-mix(in srgb,var(--bg) 85%,transparent)}
+@media (max-width:480px){.seg{grid-template-columns:1fr 1fr}.seg .ax{display:none}}
+
+footer{padding:clamp(72px,10vw,112px) 0 48px}
+.contact{border-top:2px solid var(--ink);padding-top:28px}
+.contact h2{font-size:clamp(1.6rem,4vw,2.4rem);letter-spacing:-.025em;font-weight:800;margin:0 0 10px}
+.contact p{color:var(--muted);max-width:52ch}
+.fine{color:var(--muted);font-size:.85rem;margin-top:48px}
+
+/* Governance */
+.std{display:grid;grid-template-columns:minmax(0,1fr);gap:12px;margin:0 0 26px}
+@media (min-width:640px){.std{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.std div{background:var(--surface);border:1px solid var(--rule);border-top:3px solid var(--signal);border-radius:8px;padding:14px 16px 16px}
+.std b{display:block;font-size:1.05rem;margin:0 0 2px}
+.std .what{display:block;font-size:.85rem;color:var(--muted);margin:0 0 10px}
+.std p{font-size:.95rem;margin:0}
+.lifecycle{list-style:none;margin:0 0 8px;padding:0;border-left:2px solid var(--signal);counter-reset:lc}
+.lifecycle li{counter-increment:lc;position:relative;padding:0 0 18px 26px}
+.lifecycle li::before{content:counter(lc);position:absolute;left:-12px;top:0;width:22px;height:22px;border-radius:50%;background:var(--signal);color:var(--bg);font-size:.78rem;font-weight:700;display:flex;align-items:center;justify-content:center}
+.lifecycle b{display:block}
+.lifecycle span{color:var(--muted);font-size:.95rem}
+.gov-note{font-size:.85rem;color:var(--muted);margin:10px 0 0}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="mark" href="#top">Syed Mohsin Nadeem</a>
+    <nav aria-label="Sections">
+      <ul>
+        <li class="opt"><a href="#governance">Responsible AI</a></li>
+        <li class="opt"><a href="#experience">Experience</a></li>
+        <li><a href="#work">Work</a></li>
+        <li><a href="#projects">Projects</a></li>
+        
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <div class="wrap hero">
+    <img class="photo" src="data:image/webp;base64,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" alt="Syed Mohsin Nadeem" width="260" height="260">
+    <div class="intro">
+    <h1>Syed Mohsin Nadeem</h1>
+    <p class="role">Senior Data Scientist, Newcastle-upon-Tyne</p>
+    <p class="lede">I build machine learning systems that find the faults hiding in time-series and sensor data, and I document them well enough to stand up to an audit.</p>
+    <div class="actions">
+      <a class="btn primary" href="mailto:mohsinnadeem631@gmail.com">Email me</a>
+      <a class="btn" href="https://www.linkedin.com/in/mohsin-nadeem-b609541a3/" target="_blank" rel="noopener">View LinkedIn</a>
+      <a class="btn" href="https://github.com/mohsinnadeems" target="_blank" rel="noopener">View GitHub</a>
+    </div>
+    </div>
+  </div>
+
+  <figure class="signal" aria-label="Animated illustration of a sensor signal with anomalies being flagged">
+    <svg id="sig" viewBox="0 0 1000 200" preserveAspectRatio="none" role="img" aria-hidden="true">
+      <g id="grid"></g>
+      <g id="bands"></g>
+      <polyline id="trace" class="trace" points=""></polyline>
+      <g id="flags"></g>
+    </svg>
+    <div class="wrap"><figcaption>The kind of signal I spend my days with: a noisy periodic trace, with injected faults flagged as they arrive.</figcaption></div>
+  </figure>
+
+  <div class="wrap">
+    <section class="block split" id="about">
+      <h2>About</h2>
+      <div class="measure">
+        <p>I'm a data scientist with over three years of experience designing, deploying and governing machine learning in regulated environments. Most of my work sits in anomaly detection and time-series modelling, using deep learning architectures such as CNNs, LSTMs and GANs alongside gradient-boosted models where they fit better.</p>
+        <p>I also apply LLMs and generative AI in production, using retrieval-augmented generation and prompt engineering to bring unstructured data into the picture. Throughout, I care about explainability and model risk, and I write documentation aligned to ISO/IEC 27001, ISO/IEC 42001 and GDPR.</p>
+        <p>I enjoy mentoring junior colleagues and turning complex findings into something a decision-maker can act on.</p>
+      </div>
+    </section>
+
+    <section class="block split" id="governance">
+      <h2>Responsible AI</h2>
+      <div class="measure">
+        <p>In regulated industries a model is only useful if it can be trusted, explained and audited. I build governance into the machine learning lifecycle from the start, aligned to three frameworks.</p>
+        <div class="std">
+          <div><b>ISO/IEC 42001</b><span class="what">AI management systems</span><p>Risk and impact assessments for each model, clear accountability, and controls across the AI lifecycle.</p></div>
+          <div><b>ISO/IEC 27001</b><span class="what">Information security</span><p>Access control, secure pipelines and protected training data, so ML systems meet the same security bar as the rest of the business.</p></div>
+          <div><b>GDPR</b><span class="what">Data protection</span><p>Lawful, minimal use of personal data, with privacy considered from design through to model retirement.</p></div>
+        </div>
+        <h3 style="font-size:1.1rem;margin:0 0 14px">How it shows up in my work</h3>
+        <ol class="lifecycle">
+          <li><b>Design</b><span>Define the model's purpose, risks and impact on people before any build starts.</span></li>
+          <li><b>Data</b><span>Document data sources, lineage and quality checks, and confirm data protection requirements are met.</span></li>
+          <li><b>Build</b><span>Favour explainable approaches, test for bias and robustness, and record every decision.</span></li>
+          <li><b>Deploy</b><span>Version models and experiments in MLflow, so every result can be traced and reproduced.</span></li>
+          <li><b>Monitor</b><span>Track performance and drift in production, with clear triggers for review or retirement.</span></li>
+        </ol>
+        <p class="gov-note">The result is audit-ready documentation that lets compliance teams and regulators see how a model works and why it can be trusted.</p>
+      </div>
+    </section>
+
+    <section class="block split" id="experience">
+      <h2>Experience</h2>
+      <div class="job measure">
+        <h3>Senior Data Scientist, Transmission Dynamics</h3>
+        <p class="meta">April 2023 to present</p>
+        <ul>
+          <li>Lead development of anomaly detection models on time-series and computer vision data, using CNN, RNN, LSTM, GANs, transfer learning and XGBoost, balancing performance against explainability and operational risk.</li>
+          <li>Apply LLMs, RAG and prompt engineering with LangChain and Hugging Face Transformers to extend AI into unstructured data and automation.</li>
+          <li>Deliver AI governance and audit-ready documentation aligned to ISO/IEC 27001, ISO/IEC 42001 and GDPR, keeping models explainable and compliant.</li>
+          <li>Build production ML pipelines with MLflow, model versioning and MLOps practice, and deploy models on AWS SageMaker and S3.</li>
+          <li>Develop scalable ETL pipelines in Python and SQL.</li>
+          <li>Evaluate models with rigorous experiment design and statistics, including DOE, ANOVA, MANOVA, chi-square tests and Monte Carlo simulation.</li>
+          <li>Work with cross-functional and senior stakeholders to turn analysis into clear, actionable intelligence, and mentor junior team members on modelling and AI best practice.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="block split" id="work">
+      <h2>Selected work</h2>
+      <div class="measure">
+        <p class="conf">Client and employer work is confidential, so these are described by the problem and approach rather than by name.</p>
+
+        <article class="project">
+          <h3>Fault detection on high-frequency sensor data</h3>
+          <p>Condition monitoring for industrial assets that stream vibration and time-series sensor data. I built models that learn what normal behaviour looks like and flag deviations early, with each alert explained well enough for an engineer to trust and act on it.</p>
+          <ol class="flow" aria-label="Anomaly detection pipeline">
+            <li><b>Ingest</b><span>Raw sensor streams via Python and SQL ETL</span></li>
+            <li><b>Clean</b><span>FFT and Butterworth filtering</span></li>
+            <li><b>Model</b><span>LSTM, CNN, GAN and XGBoost detectors</span></li>
+            <li><b>Explain</b><span>Scores and drivers behind each flag</span></li>
+            <li><b>Act</b><span>Alerts reviewed by engineers</span></li>
+          </ol>
+          <p class="flow-note">Models are versioned and monitored in MLflow, and deployed on AWS SageMaker or at the edge.</p>
+          <ul class="tags"><li>Time-series</li><li>Deep learning</li><li>Explainable AI</li><li>MLOps</li></ul>
+        </article>
+
+        <article class="project">
+          <h3>Visual inspection with computer vision</h3>
+          <p>Detecting defects and anomalies in image data, using YOLO and transfer learning so that strong models could be trained from a limited number of labelled examples.</p>
+          <ul class="tags"><li>YOLO</li><li>Transfer learning</li><li>CNN</li></ul>
+        </article>
+
+        <article class="project">
+          <h3>Question answering over technical documents</h3>
+          <p>A retrieval-augmented generation (RAG) assistant that lets teams ask plain-language questions of large sets of manuals and reports, and get answers grounded in the source text. Built with LangChain and Hugging Face Transformers, with prompt engineering to keep answers accurate and cited.</p>
+          <ul class="tags"><li>LLMs</li><li>RAG</li><li>LangChain</li></ul>
+        </article>
+
+        <article class="project">
+          <h3>AI governance and audit readiness</h3>
+          <p>Documentation and controls that let ML systems pass scrutiny: model cards, risk assessments and explainability evidence aligned to ISO/IEC 42001, ISO/IEC 27001 and GDPR.</p>
+          <ul class="tags"><li>ISO/IEC 42001</li><li>GDPR</li><li>Model risk</li></ul>
+        </article>
+
+        <article class="project">
+          <h3>Tamper detection for logistics</h3>
+          <p>For Mazik Global. A tamper-detection and route optimisation system built on raw IoT sensor data, where anomaly detection flags suspicious events in transit and improves traceability across the supply chain.</p>
+          <ul class="tags"><li>IoT</li><li>Anomaly detection</li><li>Route optimisation</li></ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="block split" id="projects">
+      <h2>Projects</h2>
+      <div class="measure">
+        <p class="conf">Personal and academic work, with code on GitHub.</p>
+
+        <article class="project">
+          <h3>Customer churn and lifetime value</h3>
+          <p>Which customers are about to stop buying, and which are worth the most effort to keep? Using two years of real transactions from a UK online retailer, about a million rows and 5,875 customers, I built a leakage-free churn model and implemented the BG/NBD and Gamma-Gamma lifetime value models from the original papers. I then combined the two into a plan for where to focus retention spending.</p>
+          <div class="stat">
+            <div><b>0.766</b><span>Churn ROC AUC, vs 0.708 for a recency rule</span></div>
+            <div><b>4×</b><span>Churn rate of flagged vs other top customers</span></div>
+            <div><b>73%</b><span>Of future revenue from the top 20% predicted</span></div>
+          </div>
+          <figure class="chartfig">
+            <div class="seg" role="table" aria-label="Customer segments by value and churn risk, with actual churn rates">
+              <div class="ax">Top 25% by spend</div>
+              <div class="cell key"><b>Keep happy</b>540 customers<span>7% actually churned</span></div>
+              <div class="cell hot"><b>Act now</b>541 customers, £1.57m spend<span>30% actually churned</span></div>
+              <div class="ax">Other customers</div>
+              <div class="cell"><b>Business as usual</b>1,621 customers<span>48% actually churned</span></div>
+              <div class="cell"><b>Low-cost reactivation</b>1,622 customers<span>74% actually churned</span></div>
+              <div></div><div class="ax col">Lower risk</div><div class="ax col">Higher risk</div>
+            </div>
+            <figcaption>Held-out results. Risk is ranked within each value tier, because high spenders rarely churn and a single threshold would miss them.</figcaption>
+          </figure>
+          <ul class="tags"><li>Churn prediction</li><li>BG/NBD</li><li>Customer lifetime value</li><li>scikit-learn</li><li>SciPy</li></ul>
+          <p class="repo"><a href="https://github.com/mohsinnadeems/customer-churn-clv" target="_blank" rel="noopener">View code on GitHub</a></p>
+        </article>
+
+        <article class="project">
+          <h3>ECG arrhythmia classification</h3>
+          <p>Hybrid deep learning models that classify heart rhythm from ECG signals, trained on both raw ECG tracings and WFDB-format datasets. The findings were published as a research paper.</p>
+          <figure class="chartfig">
+            <svg viewBox="0 0 640 150" class="chart" role="img" aria-labelledby="ecg-t"><title id="ecg-t">Four seconds of a real ECG recording showing regular heartbeats</title><line x1="8.0" x2="8.0" y1="6" y2="130" class="gl"/><text x="8.0" y="145.0" class="tick" text-anchor="middle">0s</text><line x1="164.0" x2="164.0" y1="6" y2="130" class="gl"/><text x="164.0" y="145.0" class="tick" text-anchor="middle">1s</text><line x1="320.0" x2="320.0" y1="6" y2="130" class="gl"/><text x="320.0" y="145.0" class="tick" text-anchor="middle">2s</text><line x1="476.0" x2="476.0" y1="6" y2="130" class="gl"/><text x="476.0" y="145.0" class="tick" text-anchor="middle">3s</text><line x1="632.0" x2="632.0" y1="6" y2="130" class="gl"/><text x="632.0" y="145.0" class="tick" text-anchor="middle">4s</text><polyline class="s1" points="8.0,104.7 8.9,105.2 9.7,104.2 10.6,103.9 11.5,105.0 12.3,107.2 13.2,108.2 14.1,107.4 14.9,103.6 15.8,103.7 16.7,103.7 17.5,103.1 18.4,103.6 19.3,103.1 20.2,103.2 21.0,104.2 21.9,104.9 22.8,104.7 23.6,106.4 24.5,108.7 25.4,108.8 26.2,109.3 27.1,107.9 28.0,107.7 28.8,111.5 29.7,108.8 30.6,106.4 31.4,106.7 32.3,110.2 33.2,110.7 34.0,111.0 34.9,110.7 35.8,109.8 36.6,109.3 37.5,111.5 38.4,112.6 39.2,110.0 40.1,100.9 41.0,83.6 41.8,67.2 42.7,59.9 43.6,76.8 44.5,102.6 45.3,113.1 46.2,112.3 47.1,112.8 47.9,109.3 48.8,106.9 49.7,111.7 50.5,113.1 51.4,112.5 52.3,113.8 53.1,113.8 54.0,115.6 54.9,117.3 55.7,117.3 56.6,116.9 57.5,119.4 58.3,120.4 59.2,119.6 60.1,118.9 60.9,116.1 61.8,115.5 62.7,116.6 63.5,114.8 64.4,114.8 65.3,114.8 66.1,113.1 67.0,112.3 67.9,113.3 68.8,112.1 69.6,109.0 70.5,109.2 71.4,110.7 72.2,109.7 73.1,109.5 74.0,108.2 74.8,107.7 75.7,108.0 76.6,106.4 77.4,105.0 78.3,105.7 79.2,103.7 80.0,103.4 80.9,103.9 81.8,103.6 82.6,103.2 83.5,104.7 84.4,105.9 85.2,105.2 86.1,107.2 87.0,107.7 87.8,109.3 88.7,112.1 89.6,112.5 90.4,112.6 91.3,113.6 92.2,113.6 93.1,115.5 93.9,116.8 94.8,115.5 95.7,115.3 96.5,116.3 97.4,115.1 98.3,114.0 99.1,115.1 100.0,112.8 100.9,110.2 101.7,111.8 102.6,114.5 103.5,113.8 104.3,114.3 105.2,113.6 106.1,115.1 106.9,118.1 107.8,117.1 108.7,116.9 109.5,116.8 110.4,115.1 111.3,115.5 112.1,116.4 113.0,114.8 113.9,113.8 114.7,113.3 115.6,113.8 116.5,114.8 117.4,113.5 118.2,112.8 119.1,112.5 120.0,107.9 120.8,98.1 121.7,80.2 122.6,65.4 123.4,66.2 124.3,92.5 125.2,116.9 126.0,123.4 126.9,118.9 127.8,118.1 128.6,117.4 129.5,116.9 130.4,117.8 131.2,117.8 132.1,119.1 133.0,119.6 133.8,120.2 134.7,117.9 135.6,117.9 136.4,117.3 137.3,116.4 138.2,116.4 139.0,116.0 139.9,113.8 140.8,114.1 141.7,113.8 142.5,113.3 143.4,114.6 144.3,114.6 145.1,113.8 146.0,115.3 146.9,115.8 147.7,116.6 148.6,117.1 149.5,114.3 150.3,112.5 151.2,113.3 152.1,111.7 152.9,109.8 153.8,111.0 154.7,109.7 155.5,107.7 156.4,107.9 157.3,106.4 158.1,104.7 159.0,105.7 159.9,105.2 160.7,104.2 161.6,103.7 162.5,105.2 163.3,105.7 164.2,106.0 165.1,106.4 166.0,107.9 166.8,110.2 167.7,110.0 168.6,110.5 169.4,110.5 170.3,109.8 171.2,108.0 172.0,109.0 172.9,107.7 173.8,108.0 174.6,109.0 175.5,107.9 176.4,106.0 177.2,105.2 178.1,103.6 179.0,102.7 179.8,102.6 180.7,100.2 181.6,100.1 182.4,101.2 183.3,99.8 184.2,98.8 185.0,100.1 185.9,100.7 186.8,100.4 187.6,102.9 188.5,103.6 189.4,102.9 190.3,103.1 191.1,103.1 192.0,102.7 192.9,103.6 193.7,103.7 194.6,103.9 195.5,104.5 196.3,104.2 197.2,103.1 198.1,103.7 198.9,104.9 199.8,101.1 200.7,92.6 201.5,78.8 202.4,61.2 203.3,48.3 204.1,53.8 205.0,78.1 205.9,97.4 206.7,101.6 207.6,100.6 208.5,101.9 209.3,100.6 210.2,100.4 211.1,102.1 211.9,102.2 212.8,102.2 213.7,103.1 214.6,101.7 215.4,99.8 216.3,100.7 217.2,99.9 218.0,98.8 218.9,99.6 219.8,97.9 220.6,97.6 221.5,97.8 222.4,96.3 223.2,95.6 224.1,95.6 225.0,93.5 225.8,92.3 226.7,91.2 227.6,89.5 228.4,87.9 229.3,90.0 230.2,89.8 231.0,87.5 231.9,89.2 232.8,88.8 233.6,86.2 234.5,84.4 235.4,82.6 236.3,83.7 237.1,84.4 238.0,81.9 238.9,82.6 239.7,84.2 240.6,83.9 241.5,85.9 242.3,87.5 243.2,88.2 244.1,89.7 244.9,92.5 245.8,94.3 246.7,94.3 247.5,94.5 248.4,94.5 249.3,94.3 250.1,95.5 251.0,93.8 251.9,92.8 252.7,93.6 253.6,94.1 254.5,92.3 255.3,93.8 256.2,93.1 257.1,91.5 257.9,92.0 258.8,89.2 259.7,87.0 260.6,88.5 261.4,86.5 262.3,84.2 263.2,85.9 264.0,86.2 264.9,86.4 265.8,89.0 266.6,89.7 267.5,90.0 268.4,92.1 269.2,93.1 270.1,94.0 271.0,95.8 271.8,95.1 272.7,93.5 273.6,95.0 274.4,94.1 275.3,92.3 276.2,93.1 277.0,95.0 277.9,93.3 278.8,86.0 279.6,72.8 280.5,51.3 281.4,33.5 282.2,32.5 283.1,53.1 284.0,76.4 284.9,86.2 285.7,87.7 286.6,88.2 287.5,87.0 288.3,86.4 289.2,88.5 290.1,89.2 290.9,87.9 291.8,88.7 292.7,88.3 293.5,87.4 294.4,86.7 295.3,86.0 296.1,85.0 297.0,85.2 297.9,85.0 298.7,83.7 299.6,83.6 300.5,83.4 301.3,82.9 302.2,82.2 303.1,79.4 303.9,79.9 304.8,79.6 305.7,78.4 306.5,76.6 307.4,76.4 308.3,76.1 309.2,74.8 310.0,74.8 310.9,73.8 311.8,72.8 312.6,73.3 313.5,73.5 314.4,71.7 315.2,71.5 316.1,70.2 317.0,68.8 317.8,70.5 318.7,69.2 319.6,67.2 320.4,67.0 321.3,68.3 322.2,66.9 323.0,68.3 323.9,70.5 324.8,70.5 325.6,71.3 326.5,72.8 327.4,72.6 328.2,74.8 329.1,75.6 330.0,75.8 330.8,76.3 331.7,74.8 332.6,73.8 333.5,73.1 334.3,72.5 335.2,71.8 336.1,71.8 336.9,70.0 337.8,67.5 338.7,70.3 339.5,69.5 340.4,68.3 341.3,70.3 342.1,70.7 343.0,70.5 343.9,74.3 344.7,74.3 345.6,73.6 346.5,74.5 347.3,74.6 348.2,74.1 349.1,75.5 349.9,75.3 350.8,73.8 351.7,76.0 352.5,75.0 353.4,74.1 354.3,78.9 355.1,78.9 356.0,71.0 356.9,57.6 357.8,36.9 358.6,20.9 359.5,31.5 360.4,52.3 361.2,68.7 362.1,72.6 363.0,71.7 363.8,71.0 364.7,71.8 365.6,72.0 366.4,71.2 367.3,73.0 368.2,74.1 369.0,73.5 369.9,75.3 370.8,75.0 371.6,74.3 372.5,75.5 373.4,75.0 374.2,73.6 375.1,75.5 376.0,74.3 376.8,72.8 377.7,73.0 378.6,71.8 379.4,70.7 380.3,71.5 381.2,70.7 382.1,70.7 382.9,71.3 383.8,69.3 384.7,67.2 385.5,67.7 386.4,66.5 387.3,65.2 388.1,65.2 389.0,65.2 389.9,63.9 390.7,63.2 391.6,61.7 392.5,60.9 393.3,61.4 394.2,60.9 395.1,60.1 395.9,61.2 396.8,62.6 397.7,63.4 398.5,65.2 399.4,67.4 400.3,67.7 401.1,68.8 402.0,68.7 402.9,68.5 403.7,69.0 404.6,69.3 405.5,68.0 406.4,67.7 407.2,67.4 408.1,66.2 409.0,67.4 409.8,64.5 410.7,62.4 411.6,62.7 412.4,62.7 413.3,62.7 414.2,64.4 415.0,65.0 415.9,66.4 416.8,68.8 417.6,69.7 418.5,67.7 419.4,68.5 420.2,69.7 421.1,70.0 422.0,71.5 422.8,72.0 423.7,69.0 424.6,70.8 425.4,71.5 426.3,72.1 427.2,74.8 428.1,76.4 428.9,75.1 429.8,66.4 430.7,52.0 431.5,35.1 432.4,23.9 433.3,26.4 434.1,49.0 435.0,70.0 435.9,74.1 436.7,71.5 437.6,71.5 438.5,70.7 439.3,70.2 440.2,70.5 441.1,69.2 441.9,69.2 442.8,69.7 443.7,68.7 444.5,67.4 445.4,65.7 446.3,66.9 447.1,67.0 448.0,67.7 448.9,68.0 449.7,66.4 450.6,67.2 451.5,67.4 452.4,66.4 453.2,66.0 454.1,66.5 455.0,65.7 455.8,65.7 456.7,64.4 457.6,62.2 458.4,62.6 459.3,62.4 460.2,60.7 461.0,59.9 461.9,59.9 462.8,58.9 463.6,58.4 464.5,57.9 465.4,56.9 466.2,56.6 467.1,56.3 468.0,54.8 468.8,55.5 469.7,55.6 470.6,54.6 471.4,54.6 472.3,55.5 473.2,54.6 474.0,56.8 474.9,57.3 475.8,58.8 476.7,60.1 477.5,59.9 478.4,61.7 479.3,62.6 480.1,62.2 481.0,62.9 481.9,63.6 482.7,64.2 483.6,64.4 484.5,63.9 485.3,61.9 486.2,60.2 487.1,59.3 487.9,57.8 488.8,56.0 489.7,57.9 490.5,58.6 491.4,57.9 492.3,59.4 493.1,60.6 494.0,61.1 494.9,63.2 495.7,64.7 496.6,64.4 497.5,64.0 498.3,64.4 499.2,64.9 500.1,65.9 501.0,65.5 501.8,65.0 502.7,66.9 503.6,67.0 504.4,68.5 505.3,70.8 506.2,66.4 507.0,55.0 507.9,39.4 508.8,24.7 509.6,16.6 510.5,34.5 511.4,59.6 512.2,67.7 513.1,66.9 514.0,66.4 514.8,66.4 515.7,68.2 516.6,68.2 517.4,68.3 518.3,68.5 519.2,67.5 520.0,67.4 520.9,68.0 521.8,68.7 522.6,68.0 523.5,68.0 524.4,68.0 525.3,67.2 526.1,68.0 527.0,67.9 527.9,67.5 528.7,67.5 529.6,66.9 530.5,65.4 531.3,65.4 532.2,64.9 533.1,65.2 533.9,65.2 534.8,64.2 535.7,62.6 536.5,63.4 537.4,63.1 538.3,61.9 539.1,63.2 540.0,63.2 540.9,62.1 541.7,62.4 542.6,61.9 543.5,60.2 544.3,61.1 545.2,60.7 546.1,60.6 546.9,61.9 547.8,62.4 548.7,62.9 549.6,64.9 550.4,66.2 551.3,66.7 552.2,68.5 553.0,69.5 553.9,70.2 554.8,71.0 555.6,71.7 556.5,70.8 557.4,71.7 558.2,71.0 559.1,69.3 560.0,70.0 560.8,69.7 561.7,68.0 562.6,68.2 563.4,68.7 564.3,68.0 565.2,69.2 566.0,70.3 566.9,70.8 567.8,72.6 568.6,74.1 569.5,73.8 570.4,75.1 571.2,75.8 572.1,75.8 573.0,76.4 573.9,76.3 574.7,75.8 575.6,76.4 576.5,76.6 577.3,76.9 578.2,79.3 579.1,79.3 579.9,73.3 580.8,62.9 581.7,46.0 582.5,29.5 583.4,34.3 584.3,55.0 585.1,72.0 586.0,76.9 586.9,76.6 587.7,75.1 588.6,76.8 589.5,78.3 590.3,77.8 591.2,77.6 592.1,78.1 592.9,78.6 593.8,79.6 594.7,80.2 595.5,79.1 596.4,80.2 597.3,79.6 598.2,78.3 599.0,79.1 599.9,79.4 600.8,79.1 601.6,79.1 602.5,78.3 603.4,77.9 604.2,78.3 605.1,78.4 606.0,77.1 606.8,77.1 607.7,77.3 608.6,76.1 609.4,74.6 610.3,74.5 611.2,73.8 612.0,74.1 612.9,73.8 613.8,72.8 614.6,72.3 615.5,71.7 616.4,71.0 617.2,72.5 618.1,71.2 619.0,71.3 619.8,70.3 620.7,71.2 621.6,71.5 622.5,73.3 623.3,75.1 624.2,74.6 625.1,76.1 625.9,78.4 626.8,79.9 627.7,85.5 628.5,86.0 629.4,79.8 630.3,77.8 631.1,77.6 632.0,77.9"/></svg>
+            <figcaption>Four seconds of a real ECG recording, the kind of signal these models learn from. Sample from the MIT-BIH database, via SciPy.</figcaption>
+          </figure>
+          <ul class="tags"><li>LSTM</li><li>Keras</li><li>Signal processing</li><li>Healthcare</li></ul>
+          <p class="repo"><a href="https://github.com/mohsinnadeems/ECG_Arrhythmias_Classification" target="_blank" rel="noopener">View code on GitHub</a></p>
+        </article>
+
+        <article class="project">
+          <h3>UK job vacancies forecasting pipeline</h3>
+          <p>A modular Python pipeline that pulls vacancy data from the Office for National Statistics API, reconciles every historical release into one clean series, charts how estimates were revised, and forecasts ahead with Holt–Winters exponential smoothing. Packaged with Poetry and documented throughout.</p>
+          <figure class="chartfig">
+            <svg viewBox="0 0 520 260" class="chart" role="img" aria-labelledby="ons-t"><title id="ons-t">UK vacancies from 2015 to July 2026 with a 12-month damped Holt forecast</title><line x1="46" x2="506" y1="207.3" y2="207.3" class="gl"/><text x="38.0" y="211.3" class="tick" text-anchor="end">400k</text><line x1="46" x2="506" y1="132.4" y2="132.4" class="gl"/><text x="38.0" y="136.4" class="tick" text-anchor="end">800k</text><line x1="46" x2="506" y1="57.5" y2="57.5" class="gl"/><text x="38.0" y="61.5" class="tick" text-anchor="end">1,200k</text><text x="46.0" y="248.0" class="tick" text-anchor="middle">2015</text><text x="119.6" y="248.0" class="tick" text-anchor="middle">2017</text><text x="193.2" y="248.0" class="tick" text-anchor="middle">2019</text><text x="266.8" y="248.0" class="tick" text-anchor="middle">2021</text><text x="340.4" y="248.0" class="tick" text-anchor="middle">2023</text><text x="414.0" y="248.0" class="tick" text-anchor="middle">2025</text><text x="487.6" y="248.0" class="tick" text-anchor="middle">2027</text><polygon class="band" points="469.2,150.7 472.3,147.5 475.3,144.1 478.4,140.0 481.5,136.0 484.5,131.8 487.6,127.9 490.7,123.4 493.7,119.3 496.8,116.0 499.9,113.5 502.9,110.7 506.0,106.8 506.0,200.3 502.9,196.5 499.9,193.2 496.8,188.9 493.7,185.1 490.7,181.0 487.6,177.2 484.5,173.3 481.5,168.9 478.4,164.0 475.3,159.4 472.3,155.1"/><polyline class="s1" points="46.0,147.2 49.1,145.7 52.1,146.2 55.2,146.0 58.3,145.5 61.3,142.9 64.4,142.9 67.5,143.2 70.5,143.6 73.6,143.4 76.7,142.7 79.7,142.3 82.8,142.5 85.9,142.7 88.9,143.2 92.0,142.5 95.1,142.1 98.1,141.2 101.2,140.6 104.3,140.6 107.3,138.9 110.4,140.4 113.5,141.2 116.5,142.9 119.6,140.0 122.7,138.7 125.7,134.4 128.8,134.8 131.9,133.9 134.9,133.7 138.0,132.2 141.1,131.2 144.1,130.3 147.2,129.4 150.3,129.6 153.3,130.7 156.4,131.2 159.5,130.9 162.5,130.9 165.6,128.2 168.7,124.7 171.7,123.2 174.8,122.4 177.9,122.4 180.9,120.8 184.0,121.9 187.1,123.4 190.1,123.9 193.2,125.6 196.3,125.4 199.3,125.4 202.4,125.4 205.5,125.8 208.5,125.8 211.6,126.7 214.7,127.3 217.7,130.7 220.8,132.4 223.9,132.6 226.9,132.4 230.0,130.9 233.1,134.6 236.1,163.3 239.2,193.0 242.3,217.9 245.3,210.3 248.4,198.8 251.5,188.7 254.5,182.9 257.6,179.4 260.7,172.4 263.7,169.3 266.8,168.1 269.9,165.9 272.9,158.6 276.0,137.8 279.1,116.8 282.1,98.1 285.2,82.2 288.3,70.2 291.3,56.0 294.4,52.0 297.5,49.2 300.5,49.0 303.6,47.3 306.7,46.4 309.7,43.0 312.8,40.0 315.9,39.9 318.9,44.0 322.0,46.8 325.1,50.9 328.1,54.5 331.2,63.1 334.3,69.1 337.3,74.7 340.4,76.0 343.5,78.2 346.5,82.7 349.6,87.4 352.7,89.5 355.7,91.5 358.8,95.1 361.9,97.9 364.9,102.8 368.0,104.1 371.1,109.3 374.1,111.8 377.2,114.6 380.3,114.9 383.3,116.4 386.4,116.4 389.5,118.9 392.5,119.8 395.6,122.4 398.7,124.9 401.7,127.1 404.8,130.5 407.9,131.4 410.9,132.7 414.0,133.7 417.1,137.0 420.1,140.0 423.2,144.0 426.3,145.5 429.3,146.0 432.4,144.0 435.5,145.7 438.5,145.8 441.6,145.5 444.7,143.8 447.7,144.7 450.8,146.4 453.9,147.7 456.9,148.7 460.0,149.2 463.1,149.0 466.1,150.0 469.2,150.7"/><polyline class="fc" points="469.2,150.7 472.3,151.3 475.3,151.8 478.4,152.2 481.5,152.5 484.5,152.7 487.6,152.9 490.7,153.1 493.7,153.2 496.8,153.3 499.9,153.4 502.9,153.5 506.0,153.5"/><circle cx="242.3" cy="217.9" r="4" class="pt"/><text x="250.3" y="221.9" class="lbl" text-anchor="start">May 2020: 343k</text><circle cx="315.9" cy="39.9" r="4" class="pt"/><text x="307.9" y="37.9" class="lbl" text-anchor="end">May 2022: 1,294k</text><text x="506.0" y="98.8" class="lbl2" text-anchor="end">Forecast, 80% band</text></svg>
+            <figcaption>UK vacancies in thousands, ONS series AP2Y to July 2026, with a 12-month damped Holt forecast. Source: Office for National Statistics, Open Government Licence.</figcaption>
+          </figure>
+          <ul class="tags"><li>Time-series</li><li>Holt–Winters</li><li>Data engineering</li><li>ONS API</li></ul>
+          <p class="repo"><a href="https://github.com/mohsinnadeems/boe_ons" target="_blank" rel="noopener">View code on GitHub</a></p>
+        </article>
+
+        <article class="project">
+          <h3>Marketing mix modelling</h3>
+          <p>Measured how spend across three media channels, a newsletter and competitor activity drives weekly revenue. A regression model was tested against an ARIMA baseline on an eight-week holdout, then rebuilt in PyMC3 as a Bayesian model with priors set from expert claims about each channel.</p>
+          <figure class="chartfig">
+            <svg viewBox="0 0 520 110" class="chart" role="img" aria-labelledby="mmm-t"><title id="mmm-t">Holdout RMSE for weekly revenue: regression versus ARIMA</title><line x1="132.0" x2="132.0" y1="14" y2="84" class="gl"/><text x="132.0" y="100.0" class="tick" text-anchor="middle">0k</text><line x1="272.8" x2="272.8" y1="14" y2="84" class="gl"/><text x="272.8" y="100.0" class="tick" text-anchor="middle">100k</text><line x1="413.7" x2="413.7" y1="14" y2="84" class="gl"/><text x="413.7" y="100.0" class="tick" text-anchor="middle">200k</text><text x="122.0" y="37.0" class="lbl" text-anchor="end">Media regression</text><rect x="132" y="26" width="70.9" height="14" rx="2" class="bar0"/><text x="208.9" y="37.0" class="val" text-anchor="start">50k</text><text x="122.0" y="69.0" class="lbl" text-anchor="end">ARIMA baseline</text><rect x="132" y="58" width="298.8" height="14" rx="2" class="bar0"/><text x="436.8" y="69.0" class="val" text-anchor="start">212k</text></svg>
+            <figcaption>Root mean squared error on the eight-week holdout. The media regression cut error by roughly three quarters against ARIMA.</figcaption>
+          </figure>
+          <ul class="tags"><li>Bayesian modelling</li><li>PyMC3</li><li>ARIMA</li><li>statsmodels</li></ul>
+          <p class="repo"><a href="https://github.com/mohsinnadeems/Croud_KTP_Associate" target="_blank" rel="noopener">View code on GitHub</a></p>
+        </article>
+
+        <article class="project">
+          <h3>Predicting road accident severity</h3>
+          <p>Classified the severity of road traffic accidents in France from 2005 to 2016 using road, weather and time features. Compared four models and tuned the best one with feature selection, prioritising recall so that serious accidents are less likely to be missed.</p>
+          <figure class="chartfig">
+            <svg viewBox="0 0 520 242" class="chart" role="img" aria-labelledby="acc-t"><title id="acc-t">Precision and recall for severe accidents by model</title><line x1="132.0" x2="132.0" y1="14" y2="216" class="gl"/><text x="132.0" y="232.0" class="tick" text-anchor="middle">0.00</text><line x1="216.5" x2="216.5" y1="14" y2="216" class="gl"/><text x="216.5" y="232.0" class="tick" text-anchor="middle">0.25</text><line x1="301.0" x2="301.0" y1="14" y2="216" class="gl"/><text x="301.0" y="232.0" class="tick" text-anchor="middle">0.50</text><line x1="385.5" x2="385.5" y1="14" y2="216" class="gl"/><text x="385.5" y="232.0" class="tick" text-anchor="middle">0.75</text><line x1="470.0" x2="470.0" y1="14" y2="216" class="gl"/><text x="470.0" y="232.0" class="tick" text-anchor="middle">1.00</text><text x="122.0" y="45.5" class="lbl" text-anchor="end">Random forest</text><rect x="132" y="26" width="244.7" height="14" rx="2" class="bar0"/><text x="382.7" y="37.0" class="val" text-anchor="start">0.72</text><rect x="132" y="43" width="200.1" height="14" rx="2" class="bar1"/><text x="338.1" y="54.0" class="val" text-anchor="start">0.59</text><text x="122.0" y="94.5" class="lbl" text-anchor="end">Logistic regression</text><rect x="132" y="75" width="225.4" height="14" rx="2" class="bar0"/><text x="363.4" y="86.0" class="val" text-anchor="start">0.67</text><rect x="132" y="92" width="154.1" height="14" rx="2" class="bar1"/><text x="292.1" y="103.0" class="val" text-anchor="start">0.46</text><text x="122.0" y="143.5" class="lbl" text-anchor="end">KNN (k = 16)</text><rect x="132" y="124" width="220.4" height="14" rx="2" class="bar0"/><text x="358.4" y="135.0" class="val" text-anchor="start">0.65</text><rect x="132" y="141" width="171.0" height="14" rx="2" class="bar1"/><text x="309.0" y="152.0" class="val" text-anchor="start">0.51</text><text x="122.0" y="192.5" class="lbl" text-anchor="end">SVM</text><rect x="132" y="173" width="212.9" height="14" rx="2" class="bar0"/><text x="350.9" y="184.0" class="val" text-anchor="start">0.63</text><rect x="132" y="190" width="178.5" height="14" rx="2" class="bar1"/><text x="316.5" y="201.0" class="val" text-anchor="start">0.53</text></svg>
+            <ul class="legend"><li>Precision</li><li class="b1">Recall</li></ul>
+            <figcaption>Test-set results for the severe class. The tuned random forest led on both, and trained as fast as logistic regression.</figcaption>
+          </figure>
+          <ul class="tags"><li>Classification</li><li>Random forest</li><li>scikit-learn</li></ul>
+          <p class="repo"><a href="https://github.com/mohsinnadeems/Coursera_Capstone" target="_blank" rel="noopener">View code on GitHub</a></p>
+        </article>
+
+        <article class="project">
+          <h3>Crop yield prediction</h3>
+          <p>Predicted head weight, diameter and days to harvest for crops from planting, drone flight and weather data. Most of the work was careful preparation: joining four data sources, removing columns that would leak future information, and engineering date features. Models were tuned with grid search and five-fold cross-validation, and explained with SHAP.</p>
+          <figure class="chartfig">
+            <svg viewBox="0 0 520 110" class="chart" role="img" aria-labelledby="crop-t"><title id="crop-t">R squared on unseen data: linear regression versus random forest</title><line x1="132.0" x2="132.0" y1="14" y2="84" class="gl"/><text x="132.0" y="100.0" class="tick" text-anchor="middle">0</text><line x1="301.0" x2="301.0" y1="14" y2="84" class="gl"/><text x="301.0" y="100.0" class="tick" text-anchor="middle">0.5</text><line x1="470.0" x2="470.0" y1="14" y2="84" class="gl"/><text x="470.0" y="100.0" class="tick" text-anchor="middle">1</text><text x="122.0" y="37.0" class="lbl" text-anchor="end">Linear regression</text><rect x="132" y="26" width="292.4" height="14" rx="2" class="bar0"/><text x="430.4" y="37.0" class="val" text-anchor="start">0.865</text><text x="122.0" y="69.0" class="lbl" text-anchor="end">Random forest</text><rect x="132" y="58" width="318.7" height="14" rx="2" class="bar0"/><text x="456.7" y="69.0" class="val" text-anchor="start">0.943</text></svg>
+            <figcaption>R² on unseen data. The tuned random forest explained 94% of the variance.</figcaption>
+          </figure>
+          <ul class="tags"><li>Regression</li><li>SHAP</li><li>Feature engineering</li></ul>
+          <p class="repo"><a href="https://github.com/mohsinnadeems/-CE888-Agrotech-02-NADEE36907" target="_blank" rel="noopener">View code on GitHub</a></p>
+        </article>
+
+        <article class="project">
+          <h3>Stock price forecasting with LSTM</h3>
+          <p>Analysed a year of trading for Apple, Google, Microsoft and Amazon, covering moving averages, daily returns, correlation and risk against return. Then trained a stacked LSTM on ten years of Apple closing prices to predict the next close from the previous 60 days.</p>
+          <ol class="flow" aria-label="LSTM model architecture">
+            <li><b>Input</b><span>60 days of scaled closing prices</span></li>
+            <li><b>LSTM</b><span>128 units</span></li>
+            <li><b>LSTM</b><span>64 units</span></li>
+            <li><b>Dense</b><span>25 units</span></li>
+            <li><b>Output</b><span>Next day's close</span></li>
+          </ol>
+          <div class="stat"><div><b>$8.38</b><span>RMSE on the test period</span></div><div><b>10 years</b><span>Of daily price history</span></div></div>
+          <ul class="tags"><li>LSTM</li><li>Keras</li><li>Financial time-series</li></ul>
+          <p class="repo"><a href="https://github.com/mohsinnadeems/Stock_Market_Forecaster" target="_blank" rel="noopener">View code on GitHub</a></p>
+        </article>
+      </div>
+    </section>
+
+    <section class="block split" id="skills">
+      <h2>Skills</h2>
+      <dl class="skills">
+        <div><dt>Anomaly detection and deep learning</dt><dd>CNN, RNN, LSTM, GANs, YOLO, time-series analysis, FFT, Butterworth filtering, transfer learning, XGBoost</dd></div>
+        <div><dt>Generative AI and LLMs</dt><dd>LangChain, Hugging Face Transformers, RAG, prompt engineering</dd></div>
+        <div><dt>AI governance and ethics</dt><dd>ISO/IEC 27001, ISO/IEC 42001, GDPR, explainable AI, audit-ready documentation</dd></div>
+        <div><dt>Programming and cloud</dt><dd>Python (NumPy, Pandas, scikit-learn, TensorFlow, PyTorch), SQL and PostgreSQL, R, AWS SageMaker and S3, Docker, Git, LaTeX</dd></div>
+        <div><dt>MLOps and deployment</dt><dd>MLflow, real-time pipelines, edge AI deployment, CI/CD, Plotly, Matplotlib, Seaborn</dd></div>
+        <div><dt>Statistics and experimentation</dt><dd>Hypothesis testing, DOE, ANOVA, MANOVA, regression, chi-square, Monte Carlo simulation, uncertainty analysis</dd></div>
+        <div><dt>Leadership and stakeholders</dt><dd>Mentoring, technical writing, stakeholder engagement, Agile and Scrum, cross-functional collaboration</dd></div>
+      </dl>
+    </section>
+
+    <section class="block split" id="education">
+      <h2>Education</h2>
+      <div class="measure">
+        <div class="edu">
+          <h3>MSc Artificial Intelligence</h3>
+          <p class="meta">University of Essex, 2022 to 2023</p>
+          <p>Machine learning, deep learning, data science and decision making, natural language processing, robotics, and big data analytics.</p>
+        </div>
+        <div class="edu">
+          <h3>BEng Software Engineering</h3>
+          <p class="meta">NED University of Engineering &amp; Technology, 2017 to 2021</p>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer class="wrap" id="contact">
+  <div class="contact">
+    <h2>Let's talk</h2>
+    <p>I'm open to conversations about data science roles and projects, especially anomaly detection, time-series and responsible AI.</p>
+    <div class="actions">
+      <a class="btn primary" href="mailto:mohsinnadeem631@gmail.com">mohsinnadeem631@gmail.com</a>
+      <a class="btn" href="https://www.linkedin.com/in/mohsin-nadeem-b609541a3/" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="btn" href="https://github.com/mohsinnadeems" target="_blank" rel="noopener">GitHub</a>
+    </div>
+    <p class="fine">Syed Mohsin Nadeem, Newcastle-upon-Tyne, UK</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var W=1000,H=200,N=260,MID=H/2,AMP=58;
+  var svg=document.getElementById('sig');
+  var trace=document.getElementById('trace');
+  var flagsG=document.getElementById('flags');
+  var bandsG=document.getElementById('bands');
+  var grid=document.getElementById('grid');
+  var NS='http://www.w3.org/2000/svg';
+
+  for(var gx=0;gx<=W;gx+=50){var l=document.createElementNS(NS,'line');l.setAttribute('x1',gx);l.setAttribute('x2',gx);l.setAttribute('y1',0);l.setAttribute('y2',H);l.setAttribute('class','grid-line');grid.appendChild(l)}
+  for(var gy=25;gy<H;gy+=50){var l2=document.createElementNS(NS,'line');l2.setAttribute('x1',0);l2.setAttribute('x2',W);l2.setAttribute('y1',gy);l2.setAttribute('y2',gy);l2.setAttribute('class','grid-line');grid.appendChild(l2)}
+
+  var t=0,data=[],flags=[],nextFault=90+Math.floor(Math.random()*60),burst=0,burstSign=1;
+  function rand(){return (Math.random()+Math.random()+Math.random()-1.5)/1.5}
+  function sample(){
+    var v=Math.sin(t*0.16)*0.45+Math.sin(t*0.043)*0.22+rand()*0.09;
+    var isFault=false;
+    if(t===nextFault){burst=5;burstSign=Math.random()<.5?-1:1;flags.push({t:t+2})}
+    if(burst>0){v+=burstSign*(0.35+0.25*Math.sin((5-burst)*1.3))*(burst===3?3:1.6);burst--;isFault=true}
+    if(t===nextFault+5){nextFault=t+120+Math.floor(Math.random()*100)}
+    t++;return v;
+  }
+  for(var i=0;i<N;i++)data.push(sample());
+
+  function draw(){
+    var step=W/(N-1),pts=[];
+    for(var i=0;i<N;i++){pts.push((i*step).toFixed(1)+','+(MID-data[i]*AMP).toFixed(1))}
+    trace.setAttribute('points',pts.join(' '));
+    flagsG.textContent='';bandsG.textContent='';
+    var t0=t-N;
+    flags=flags.filter(function(f){return f.t>t0-10});
+    flags.forEach(function(f){
+      var idx=f.t-t0;if(idx<0||idx>=N)return;
+      var x=idx*step,y=MID-data[idx]*AMP;
+      var b=document.createElementNS(NS,'rect');
+      b.setAttribute('x',x-22);b.setAttribute('y',0);b.setAttribute('width',44);b.setAttribute('height',H);b.setAttribute('class','flag-band');bandsG.appendChild(b);
+      var c=document.createElementNS(NS,'circle');
+      c.setAttribute('cx',x);c.setAttribute('cy',Math.max(12,Math.min(H-12,y)));c.setAttribute('r',13);c.setAttribute('class','flag-ring');flagsG.appendChild(c);
+      if(x<W-150){
+        var tx=document.createElementNS(NS,'text');
+        tx.setAttribute('x',x+26);tx.setAttribute('y',20);tx.setAttribute('class','flag-text');
+        tx.textContent='Anomaly flagged';flagsG.appendChild(tx);
+      }
+    });
+  }
+
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduce){
+    // Static frame: guarantee at least one visible flag
+    while(!flags.some(function(f){var idx=f.t-(t-N);return idx>N*0.3&&idx<N*0.7})){data.shift();data.push(sample())}
+    draw();return;
+  }
+  draw();
+  var last=0,visible=true;
+  if('IntersectionObserver' in window){new IntersectionObserver(function(e){visible=e[0].isIntersecting}).observe(svg)}
+  function loop(ts){
+    if(visible&&ts-last>45){last=ts;data.shift();data.push(sample());draw()}
+    requestAnimationFrame(loop);
+  }
+  requestAnimationFrame(loop);
+})();
+</script>
+</body>
+</html>
