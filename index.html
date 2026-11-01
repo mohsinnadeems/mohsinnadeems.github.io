@@ -217,7 +217,7 @@ footer{padding:clamp(72px,10vw,112px) 0 48px}
     <div class="intro">
     <h1>Syed Mohsin Nadeem</h1>
     <p class="role">Senior Data Scientist, Newcastle-upon-Tyne</p>
-    <p class="lede">I build machine learning systems that find the faults hiding in time-series and sensor data, and I document them well enough to stand up to an audit.</p>
+    <p class="lede">I build machine learning systems that find the rare, high-risk events hiding in large datasets, from equipment faults to suspicious activity, and I document them well enough to stand up to an audit.</p>
     <div class="actions">
       <a class="btn primary" href="mailto:mohsinnadeem631@gmail.com">Email me</a>
       <a class="btn" href="https://www.linkedin.com/in/mohsin-nadeem-b609541a3/" target="_blank" rel="noopener">View LinkedIn</a>
@@ -324,7 +324,7 @@ footer{padding:clamp(72px,10vw,112px) 0 48px}
 
         <article class="project">
           <h3>Tamper detection for logistics</h3>
-          <p>For Mazik Global. A tamper-detection and route optimisation system built on raw IoT sensor data, where anomaly detection flags suspicious events in transit and improves traceability across the supply chain.</p>
+          <p>For Mazik Global. A tamper-detection and route optimisation system built on raw IoT sensor data, where anomaly detection flags suspicious events in transit and improves traceability across the supply chain. It follows the same pattern as fraud detection: learn what normal looks like, then surface the rare events worth investigating without flooding the team with false alarms.</p>
           <ul class="tags"><li>IoT</li><li>Anomaly detection</li><li>Route optimisation</li></ul>
         </article>
       </div>
@@ -334,6 +334,22 @@ footer{padding:clamp(72px,10vw,112px) 0 48px}
       <h2>Projects</h2>
       <div class="measure">
         <p class="conf">Personal and academic work, with code on GitHub.</p>
+
+        <article class="project">
+          <h3>Card fraud detection: rules vs anomaly detection vs machine learning</h3>
+          <p>If an investigations team can only review a tiny share of transactions, which detector catches the most fraud? Using 284,807 real European card transactions with 492 frauds (0.17%), I compared a single-feature rule, an unsupervised Isolation Forest, logistic regression and XGBoost. I trained on the past and tested on the final, unseen time window, chose the alert threshold on validation data only, and judged each model by fraud caught, alert precision and money saved after review costs.</p>
+          <div class="stat">
+            <div><b>0.80</b><span>PR-AUC for XGBoost, vs 0.64 for the best single rule</span></div>
+            <div><b>76%</b><span>Of fraud caught with a frozen threshold, and 89% of alerts genuine</span></div>
+            <div><b>64</b><span>Alerts out of 56,962 test transactions</span></div>
+          </div>
+          <figure class="chartfig">
+            <svg viewBox="0 0 520 242" class="chart" role="img" aria-labelledby="fraud-t"><title id="fraud-t">Share of fraud caught and share of alerts that were genuine fraud, when reviewing the top 0.1% of transactions, by detector</title><line x1="132.0" x2="132.0" y1="14" y2="216" class="gl"/><text x="132.0" y="232.0" class="tick" text-anchor="middle">0%</text><line x1="216.5" x2="216.5" y1="14" y2="216" class="gl"/><text x="216.5" y="232.0" class="tick" text-anchor="middle">25%</text><line x1="301.0" x2="301.0" y1="14" y2="216" class="gl"/><text x="301.0" y="232.0" class="tick" text-anchor="middle">50%</text><line x1="385.5" x2="385.5" y1="14" y2="216" class="gl"/><text x="385.5" y="232.0" class="tick" text-anchor="middle">75%</text><line x1="470.0" x2="470.0" y1="14" y2="216" class="gl"/><text x="470.0" y="232.0" class="tick" text-anchor="middle">100%</text><text x="122.0" y="45.5" class="lbl" text-anchor="end">XGBoost</text><rect x="132" y="26" width="243.4" height="14" rx="2" class="bar0"/><text x="381.4" y="37.0" class="val" text-anchor="start">72%</text><rect x="132" y="43" width="321.1" height="14" rx="2" class="bar1"/><text x="459.1" y="54.0" class="val" text-anchor="start">95%</text><text x="122.0" y="94.5" class="lbl" text-anchor="end">Logistic regression</text><rect x="132" y="75" width="233.2" height="14" rx="2" class="bar0"/><text x="371.2" y="86.0" class="val" text-anchor="start">69%</text><rect x="132" y="92" width="307.6" height="14" rx="2" class="bar1"/><text x="445.6" y="103.0" class="val" text-anchor="start">91%</text><text x="122.0" y="143.5" class="lbl" text-anchor="end">Single-feature rule</text><rect x="132" y="124" width="175.8" height="14" rx="2" class="bar0"/><text x="313.8" y="135.0" class="val" text-anchor="start">52%</text><rect x="132" y="141" width="229.8" height="14" rx="2" class="bar1"/><text x="367.8" y="152.0" class="val" text-anchor="start">68%</text><text x="122.0" y="192.5" class="lbl" text-anchor="end">Isolation Forest</text><rect x="132" y="173" width="3.4" height="14" rx="2" class="bar0"/><text x="141.4" y="184.0" class="val" text-anchor="start">1%</text><rect x="132" y="190" width="6.8" height="14" rx="2" class="bar1"/><text x="144.8" y="201.0" class="val" text-anchor="start">2%</text></svg>
+            <ul class="legend"><li>Fraud caught</li><li class="b1">Alerts that were fraud</li></ul>
+            <figcaption>Unseen final time window, reviewing the top 0.1% of transactions. Isolation Forest scored 0.96 ROC-AUC yet almost all its alerts were false, a reminder that ROC-AUC misleads when fraud is this rare.</figcaption>
+          </figure>
+          <ul class="tags"><li>Fraud detection</li><li>Anomaly detection</li><li>XGBoost</li><li>Imbalanced data</li><li>SHAP</li></ul>
+        </article>
 
         <article class="project">
           <h3>Customer churn and lifetime value</h3>
@@ -465,7 +481,7 @@ footer{padding:clamp(72px,10vw,112px) 0 48px}
 <footer class="wrap" id="contact">
   <div class="contact">
     <h2>Let's talk</h2>
-    <p>I'm open to conversations about data science and machine learning roles, applied research collaborations such as Knowledge Transfer Partnerships, and projects in anomaly detection, time-series, supply chain and responsible AI.</p>
+    <p>I'm open to conversations about data science and machine learning roles, applied research collaborations such as Knowledge Transfer Partnerships, and projects in anomaly and fraud detection, risk analytics, time-series, supply chain and responsible AI.</p>
     <div class="actions">
       <a class="btn primary" href="mailto:mohsinnadeem631@gmail.com">mohsinnadeem631@gmail.com</a>
       <a class="btn" href="https://www.linkedin.com/in/mohsin-nadeem-b609541a3/" target="_blank" rel="noopener">LinkedIn</a>
