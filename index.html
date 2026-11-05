@@ -352,6 +352,23 @@ footer{padding:clamp(72px,10vw,112px) 0 48px}
         </article>
 
         <article class="project">
+          <h3>Scam message triage: NLP detection with privacy and security by design</h3>
+          <p>Scam texts are one of the most common ways people are targeted, and the warning only helps if a non-technical person understands it. Using 5,574 real SMS messages, I built an NLP service that flags scam messages and explains why in plain English. Personal data such as phone numbers, emails and links is redacted before anything is modelled or logged, and the model is served through an authenticated API with hashed keys and rate limiting.</p>
+          <div class="stat">
+            <div><b>97%</b><span>Of scams caught on unseen messages, with an F1 score of 0.95</span></div>
+            <div><b>8</b><span>False alarms in 1,029 test messages</span></div>
+            <div><b>0</b><span>Raw phone numbers, emails or links stored in logs</span></div>
+          </div>
+          <figure class="chartfig">
+            <svg viewBox="0 0 520 193" class="chart" role="img" aria-labelledby="scam-t"><title id="scam-t">Share of scam messages caught and share of alerts that were genuine scams, by model, on held-out messages</title><line x1="132.0" x2="132.0" y1="14" y2="167" class="gl"/><text x="132.0" y="183.0" class="tick" text-anchor="middle">0%</text><line x1="216.5" x2="216.5" y1="14" y2="167" class="gl"/><text x="216.5" y="183.0" class="tick" text-anchor="middle">25%</text><line x1="301.0" x2="301.0" y1="14" y2="167" class="gl"/><text x="301.0" y="183.0" class="tick" text-anchor="middle">50%</text><line x1="385.5" x2="385.5" y1="14" y2="167" class="gl"/><text x="385.5" y="183.0" class="tick" text-anchor="middle">75%</text><line x1="470.0" x2="470.0" y1="14" y2="167" class="gl"/><text x="470.0" y="183.0" class="tick" text-anchor="middle">100%</text><text x="122.0" y="45.5" class="lbl" text-anchor="end">Logistic regression</text><rect x="132" y="26" width="327.9" height="14" rx="2" class="bar0"/><text x="465.9" y="37.0" class="val" text-anchor="start">97%</text><rect x="132" y="43" width="317.7" height="14" rx="2" class="bar1"/><text x="455.7" y="54.0" class="val" text-anchor="start">94%</text><text x="122.0" y="94.5" class="lbl" text-anchor="end">Text CNN (PyTorch)</text><rect x="132" y="75" width="287.3" height="14" rx="2" class="bar0"/><text x="425.3" y="86.0" class="val" text-anchor="start">85%</text><rect x="132" y="92" width="338.0" height="14" rx="2" class="bar1"/><text x="476.0" y="103.0" class="val" text-anchor="start">100%</text><text x="122.0" y="143.5" class="lbl" text-anchor="end">Keyword rule</text><rect x="132" y="124" width="148.7" height="14" rx="2" class="bar0"/><text x="286.7" y="135.0" class="val" text-anchor="start">44%</text><rect x="132" y="141" width="338.0" height="14" rx="2" class="bar1"/><text x="476.0" y="152.0" class="val" text-anchor="start">100%</text></svg>
+            <ul class="legend"><li>Scams caught</li><li class="b1">Alerts that were scams</li></ul>
+            <figcaption>Held-out test set of 1,029 messages. A keyword rule never raised a false alarm but missed over half the scams; logistic regression was deployed because it misses the fewest and can explain each decision.</figcaption>
+          </figure>
+          <p>Example alert: <em>&ldquo;Likely scam (89%). This message contains a link; mentions a cash amount. Do not call, reply or click any links.&rdquo;</em>, for a parcel-delivery scam that was not in the training data.</p>
+          <ul class="tags"><li>NLP</li><li>PyTorch</li><li>Text classification</li><li>Privacy by design</li><li>FastAPI</li></ul>
+        </article>
+
+        <article class="project">
           <h3>Customer churn and lifetime value</h3>
           <p>Which customers are about to stop buying, and which are worth the most effort to keep? Using two years of real transactions from a UK online retailer, about a million rows and 5,875 customers, I built a leakage-free churn model and implemented the BG/NBD and Gamma-Gamma lifetime value models from the original papers. I then combined the two into a plan for where to focus retention spending.</p>
           <div class="stat">
@@ -481,7 +498,7 @@ footer{padding:clamp(72px,10vw,112px) 0 48px}
 <footer class="wrap" id="contact">
   <div class="contact">
     <h2>Let's talk</h2>
-    <p>I'm open to conversations about data science and machine learning roles, applied research collaborations such as Knowledge Transfer Partnerships, and projects in anomaly and fraud detection, risk analytics, time-series, supply chain and responsible AI.</p>
+    <p>I'm open to conversations about data science and machine learning roles, applied research collaborations such as Knowledge Transfer Partnerships, and projects in anomaly and fraud detection, NLP, risk analytics, time-series, supply chain and responsible AI.</p>
     <div class="actions">
       <a class="btn primary" href="mailto:mohsinnadeem631@gmail.com">mohsinnadeem631@gmail.com</a>
       <a class="btn" href="https://www.linkedin.com/in/mohsin-nadeem-b609541a3/" target="_blank" rel="noopener">LinkedIn</a>
